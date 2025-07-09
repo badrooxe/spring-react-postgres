@@ -1,0 +1,10 @@
+# Node
+frontend/node_modules/
+
+# Java / Spring Boot
+#backend/target/
+
+# Docker volumes
+pgdata/
+*.log
+

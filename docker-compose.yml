@@ -1,0 +1,37 @@
+services:
+
+  frontend:
+    build: ./frontend
+    ports:
+    - "5173:5173"
+    command: npm run dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresserver:5432/springreact
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - postgresserver
+    #command: java -jar demo-0.0.1-SNAPSHOT.jar
+
+  postgresserver:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: springreact
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
