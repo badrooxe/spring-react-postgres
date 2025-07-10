@@ -11,6 +11,21 @@ jobs:
     name: Build & Test Backend
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: springreact
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -21,13 +36,13 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Build backend with Maven (skip tests)
+      - name: Build backend with Maven
         working-directory: backend
-        run: mvn clean package -DskipTests
+        run: mvn clean package
 
-      # - name: Run backend tests (unit test only *not integration tests*)
-      #   working-directory: backend
-      #   run: mvn test -DskipITs
+      - name: Run backend tests
+        working-directory: backend
+        run: mvn test
 
   frontend:
     name: Build & Lint Frontend
