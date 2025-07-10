@@ -1,17 +1,30 @@
-# ----------------------------
-# STEP 1: Use lightweight JDK to run the app
-# ----------------------------
-FROM eclipse-temurin:21-jre-alpine
+# -----------------------------
+# STEP 1: Build the backend
+# -----------------------------
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
 
-# Set working directory inside the container
 WORKDIR /app
 
-# Copy the built JAR file into the container
-# Replace demo-0.0.1-SNAPSHOT.jar with your actual jar file name
-COPY demo-0.0.1-SNAPSHOT.jar app.jar
+# Copy pom.xml and download dependencies (faster rebuilds)
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Expose port (should match your Spring Boot server.port, usually 8080)
+# Copy the rest of the backend code
+COPY src ./src
+
+# Build the jar
+RUN mvn clean package -DskipTests
+
+# -----------------------------
+# STEP 2: Run the app
+# -----------------------------
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+# Copy jar from build stage
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]

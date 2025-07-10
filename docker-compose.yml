@@ -3,11 +3,12 @@ services:
   frontend:
     build: ./frontend
     ports:
-    - "5173:5173"
-    command: npm run dev
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "80:80"
+    # - "5173:5173"
+    # command: npm run dev
+    # volumes:
+    #   - ./frontend:/app
+    #   - /app/node_modules
 
 
   backend:
@@ -23,7 +24,7 @@ services:
     #command: java -jar demo-0.0.1-SNAPSHOT.jar
 
   postgresserver:
-    image: postgres:17
+    image: postgres:16
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
