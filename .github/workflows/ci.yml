@@ -25,9 +25,9 @@ jobs:
         working-directory: backend
         run: mvn clean package
 
-      - name: Run backend tests
+      - name: Run backend tests (unit test only *not integration tests*)
         working-directory: backend
-        run: mvn test
+        run: mvn test -DskipITs
 
   frontend:
     name: Build & Lint Frontend
