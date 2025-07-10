@@ -3,6 +3,9 @@ name: CD workflow
 on:
   push:
     branches: [ "main" ]
+  workflow_run:
+    workflows: ["CI workflow"]
+    types: [completed]
 
 jobs:
   deploy:
