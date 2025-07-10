@@ -26,7 +26,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
     
-    environment:
+    env:
       SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/springreact
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
