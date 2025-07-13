@@ -6,7 +6,7 @@ function Students() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://spring-react-backend-latest.onrender.com/student')
+    fetch('https://spring-react-backend-latest.onrender.com/student')
       .then(res => res.json())
       .then(data => setStudents(data))
       .catch(err => console.error('Error fetching students:', err));
@@ -14,7 +14,7 @@ function Students() {
 
   const deleteStudent = (id) => {
     if (!window.confirm('Are you sure you want to delete this student?')) return;
-    fetch(`http://spring-react-backend-latest.onrender.com/student/delete/${id}`, { method: 'DELETE' })
+    fetch(`https://spring-react-backend-latest.onrender.com/student/delete/${id}`, { method: 'DELETE' })
       .then(() => setStudents(prev => prev.filter(s => s.id !== id)))
       .catch(err => console.error('Delete failed:', err));
   };
