@@ -7,7 +7,7 @@ function UpdateStudent() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/student/${id}`)
+    fetch(`http://spring-react-backend-latest.onrender.com/student/${id}`)
       .then(res => res.json())
       .then(data => {
         console.log("student", data);
@@ -20,7 +20,7 @@ function UpdateStudent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8080/student/update/${id}?firstName=${encodeURIComponent(student.firstName)}&lastName=${encodeURIComponent(student.lastName)}&email=${encodeURIComponent(student.email)}&dob=${encodeURIComponent(student.dob)}`, {
+    fetch(`http://spring-react-backend-latest.onrender.com/student/update/${id}?firstName=${encodeURIComponent(student.firstName)}&lastName=${encodeURIComponent(student.lastName)}&email=${encodeURIComponent(student.email)}&dob=${encodeURIComponent(student.dob)}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' }, 
       body: JSON.stringify(student)  // can also be '{}' or null if your backend ignores it

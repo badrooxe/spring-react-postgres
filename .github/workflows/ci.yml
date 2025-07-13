@@ -41,6 +41,13 @@ jobs:
           distribution: temurin
           java-version: '21'
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
+
       - name: Build backend with Maven
         working-directory: backend
         run: mvn clean package

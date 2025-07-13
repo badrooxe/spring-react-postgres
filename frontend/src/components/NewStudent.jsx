@@ -9,7 +9,7 @@ function NewStudent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8080/student/add', {
+    fetch('http://spring-react-backend-latest.onrender.com/student/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(student)
